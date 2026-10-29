@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGENT PROFILE: CHRIS BLAINE</title>
+    <style>
+        /* === АТМОСФЕРА И ФОН === */
+        body {
+            margin: 0;
+            background-color: #050505;
+            color: #e0e0e0;
+            font-family: 'Courier New', Courier, monospace;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Эффект зернистости (шум) */
+        body::before {
+            content: "";
+            position: absolute;
+            top: -50%; left: -50%; right: -50%; bottom: -50%;
+            width: 200%; height: 200%;
+            background: transparent url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2UpIiBvcGFjaXR5PSIwLjA1Ii8+PC9zdmc+') repeat;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Тусклый красный акцент на фоне */
+        .glow {
+            position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(255, 51, 51, 0.08) 0%, transparent 70%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* === КОНТЕЙНЕРЫ === */
+        .screen {
+            text-align: center;
+            z-index: 1;
+            transition: opacity 0.6s ease;
+            max-width: 90%;
+        }
+
+        .hidden {
+            display: none !important;
+            opacity: 0;
+        }
+
+        /* === ЭКРАН ВХОДА === */
+        h1 {
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
+        }
+
+        input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #333;
+            color: #fff;
+            font-size: 1.2rem;
+            padding: 10px;
+            text-align: center;
+            outline: none;
+            width: 300px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            border-bottom: 1px solid #ff3333;
+            box-shadow: 0 4px 10px -5px rgba(255, 51, 51, 0.2);
+        }
+
+        #error-message {
+            color: #ff3333;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            min-height: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Глитч-эффект для ошибки */
+        .glitch {
+            animation: glitch-anim 0.3s infinite;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+
+        /* === ДОСЬЕ АГЕНТА === */
+        .dossier {
+            border: 1px solid #222;
+            padding: 40px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(5px);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .dossier h2 {
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .status {
+            color: #ff3333;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .mission-link {
+            display: block;
+            margin: 15px 0;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .mission-link:hover {
+            color: #fff;
+            padding-left: 10px;
+        }
+
+        .mission-link::before {
+            content: "> ";
+            color: #ff3333;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .mission-link:hover::before {
+            opacity: 1;
+        }
+
+        .desc {
+            display: block;
+            font-size: 0.75rem;
+            color: #555;
+            margin-top: 3px;
+        }
+
+        .footer-note {
+            margin-top: 40px;
+            font-size: 0.7rem;
+            color: #333;
+            letter-spacing: 1px;
+        }
+
+        /* Эффект печати текста */
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 2s steps(40, end);
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow"></div>
+
+    <!-- Экран входа -->
+    <div id="login-screen" class="screen">
+        <h1>PROVE YOU ARE WORTHY.</h1>
+        <input type="text" id="password-input" placeholder="Enter password..." autocomplete="off" autofocus>
+        <p id="error-message"></p>
+    </div>
+
+    <!-- Досье агента -->
+    <div id="main-content" class="screen hidden">
+        <div class="dossier">
+            <h2 class="typewriter">AGENT PROFILE: CHRIS BLAINE</h2>
+            <div class="status">STATUS: ACTIVE | UNSTABLE</div>
+            
+            <!-- ССЫЛКИ ОБНОВЛЕНЫ -->
+            <a href="https://t.me/sou1lexe" class="mission-link">
+                [ TELEGRAM CHANNEL ]
+                <span class="desc">Primary Communication Channel</span>
+            </a>
+            <a href="https://github.com/seuuser" class="mission-link">
+                [ GITHUB REPO ]
+                <span class="desc">Classified Archives</span>
+            </a>
+            <a href="https://t.me/sehn0sucht" class="mission-link">
+                [ CONTACT ME ]
+                <span class="desc">Encrypted Line (Use with caution)</span>
+            </a>
+
+            <div class="footer-note">If you are reading this, you passed the test. Don't make me regret it.</div>
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById('password-input');
+        const errorMsg = document.getElementById('error-message');
+        const loginScreen = document.getElementById('login-screen');
+        const mainContent = document.getElementById('main-content');
+
+        // Пароль и саркастичные ошибки
+        const VALID_PASS = 'placeholder';
+        const ERRORS = [
+            "Error 404: Your personality not found.",
+            "Access Denied. Try harder, baby.",
+            "Is that really the best you can do?",
+            "Wrong. I'm going back to sleep."
+        ];
+
+        input.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const userPass = input.value.toLowerCase().trim();
+                
+                if (userPass === VALID_PASS) {
+                    // Успех
+                    errorMsg.style.opacity = '0';
+                    loginScreen.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        loginScreen.classList.add('hidden');
+                        mainContent.classList.remove('hidden');
+                        
+                        // Небольшая задержка перед появлением досье для драматизма
+                        setTimeout(() => {
+                            mainContent.style.opacity = '1';
+                        }, 100);
+                    }, 600);
+                    
+                } else {
+                    // Провал + глитч
+                    const randomError = ERRORS[Math.floor(Math.random() * ERRORS.length)];
+                    errorMsg.textContent = randomError;
+                    errorMsg.style.opacity = '1';
+                    errorMsg.classList.add('glitch');
+                    
+                    // Убираем глитч через 0.3с
+                    setTimeout(() => errorMsg.classList.remove('glitch'), 300);
+                    
+                    input.value = '';
+                    input.focus();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
